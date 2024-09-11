@@ -41,17 +41,14 @@ def create_model(num_classes, load_pretrain_weights=True):
     print(model)
 
     if load_pretrain_weights:
-        print("1")
 
-        # weights_dict = torch.load(r"C:\Users\86156\Desktop\swin_mask _ocid\model_25.pth", map_location="cpu")
-        # print(weights_dict['model'].keys())
-        #
-        # # for k in list(weights_dict['model'].keys()):
-        # #     if ("box_predictor" in k) or ("mask_fcn_logits" in k):
-        # #         del weights_dict[k]
-        # #         print(k)
-        #
-        # print(model.load_state_dict(weights_dict, strict=False))
+        weights_dict = torch.load(r"C:\Users\86156\swin_maskgnet_ocid\model_475.pth", map_location="cpu")
+        print(weights_dict['model'].keys())
+        for k in list(weights_dict['model'].keys()):
+            if ("box_predictor" in k) or ("mask_fcn_logits" in k):
+                del weights_dict[k]
+                print(k)
+        print(model.load_state_dict(weights_dict, strict=False))
 
     return model
 
@@ -218,7 +215,7 @@ if __name__ == "__main__":
     # 训练设备类型
     parser.add_argument('--device', default='cuda:0', help='device')
     # 训练数据集的根目录
-    parser.add_argument('--data-path', default=r'C:\Users\86156\Desktop\grasping_siamese_mask_rcnn-main\data\OCID_grasp', help='dataset')
+    parser.add_argument('--data-path', default=r'C:\Users\86156\data\OCID_grasp', help='dataset')
     # 检测目标类别数(不包含背景)
     parser.add_argument('--num-classes', default=31, type=int, help='num_classes')
     # 文件保存地址
